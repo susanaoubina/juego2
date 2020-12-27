@@ -38,6 +38,13 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . . . . . . . . . . . . 
         `)
 })
+info.onCountdownEnd(function () {
+    if (info.score() >= 100) {
+        game.over(true, effects.confetti)
+    } else {
+        game.over(false, effects.melt)
+    }
+})
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     Coche.setImage(img`
         . . . . . . . . . . . . . . . . 
@@ -78,7 +85,12 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . e 2 2 2 2 2 2 e . . . 
         `)
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
+    tiles.placeOnRandomTile(otherSprite, sprites.castle.tileGrass1)
+    info.changeScoreBy(10)
+})
 let Coche: Sprite = null
+info.setScore(0)
 Coche = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . 2 2 2 2 2 2 2 2 . . . . 
@@ -117,5 +129,44 @@ tiles.setTilemap(tiles.createTilemap(hex`100010000101010101010101010101010101010
     . . . . . . 2 . . . . . . . . 2 
     2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
     `, [myTiles.transparency16,sprites.dungeon.floorLight0,sprites.castle.tileGrass1], TileScale.Sixteen))
-Coche.setPosition(7, 230)
+tiles.placeOnRandomTile(Coche, sprites.castle.tileGrass1)
 scene.cameraFollowSprite(Coche)
+let PersonaAzul = sprites.create(img`
+    . . . . 8 8 8 8 8 8 8 8 . . . . 
+    . . . . 8 9 9 9 9 9 9 8 . . . . 
+    . . . . 8 9 8 9 9 8 9 8 . . . . 
+    . . . . 8 9 9 9 9 9 9 8 . . . . 
+    . . . . 8 9 9 8 8 9 9 8 . . . . 
+    . . . . 8 8 8 8 8 8 8 8 . . . . 
+    . . . . . . . 8 8 . . . . . . . 
+    . . . 8 . . . 8 8 . . . 8 . . . 
+    . . . 8 8 8 8 8 8 8 8 8 8 . . . 
+    . . . . . . . 8 8 . . . . . . . 
+    . . . . . . . 8 8 . . . . . . . 
+    . . . . . . . 8 8 . . . . . . . 
+    . . . . . . 8 8 8 8 . . . . . . 
+    . . . . . 8 8 8 8 8 8 . . . . . 
+    . . . . . 8 . . . . 8 . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Food)
+let PersonaRoja = sprites.create(img`
+    . . . . 2 2 2 2 2 2 2 2 . . . . 
+    . . . . 2 4 4 4 4 4 4 2 . . . . 
+    . . . . 2 4 2 4 4 2 4 2 . . . . 
+    . . . . 2 4 4 4 4 4 4 2 . . . . 
+    . . . . 2 4 4 2 2 4 4 2 . . . . 
+    . . . . 2 2 2 2 2 2 2 2 . . . . 
+    . . . . . . . 2 2 . . . . . . . 
+    . . . 2 . . . 2 2 . . . 2 . . . 
+    . . . 2 2 2 2 2 2 2 2 2 2 . . . 
+    . . . . . . . 2 2 . . . . . . . 
+    . . . . . . . 2 2 . . . . . . . 
+    . . . . . . . 2 2 . . . . . . . 
+    . . . . . . 2 2 2 2 . . . . . . 
+    . . . . . 2 2 2 2 2 2 . . . . . 
+    . . . . . 2 . . . . 2 . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Food)
+tiles.placeOnRandomTile(PersonaAzul, sprites.castle.tileGrass1)
+tiles.placeOnRandomTile(PersonaRoja, sprites.castle.tileGrass1)
+info.startCountdown(60)
