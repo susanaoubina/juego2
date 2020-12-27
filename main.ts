@@ -90,7 +90,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSpr
     info.changeScoreBy(10)
 })
 let Coche: Sprite = null
-game.showLongText("Tienes 60 segundos para recoger a 10 o más personas por el laberinto", DialogLayout.Bottom)
+game.showLongText("Tu coche dispone de 60 segundos para recoger a 10 o más personas por el laberinto. suerte!", DialogLayout.Bottom)
 info.setScore(0)
 Coche = sprites.create(img`
     . . . . . . . . . . . . . . . . 
