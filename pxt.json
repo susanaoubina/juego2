@@ -1,5 +1,5 @@
 {
-    "name": "Juego2",
+    "name": "Laberinto",
     "description": "",
     "dependencies": {
         "device": "*"
@@ -15,7 +15,7 @@
         "test.ts"
     ],
     "targetVersions": {
-        "target": "1.2.16",
+        "target": "1.12.46",
         "targetId": "arcade"
     },
     "supportedTargets": [
